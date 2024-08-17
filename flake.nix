@@ -5,7 +5,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
+	hyprland-contrib = {
+	    url = "github:hyprwm/contrib";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +20,7 @@
     	default = nixpkgs.lib.nixosSystem {
       		specialArgs = {inherit inputs;};
       		modules = [
-       	 		./hosts/default/configuration.nix
+       	 		./system/configuration.nix
       		];
     	};
     };

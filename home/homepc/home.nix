@@ -3,7 +3,7 @@
 {
 
   imports = [
-  	../../home/basic.nix
+  	../modules
   ];  
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -89,6 +89,12 @@
 
   programs.fuzzel = {
   	enable = true;
+
+	settings = {
+		colors = {
+			background = "8aadf4";
+		};	
+	};
   };
 
   programs.alacritty = {
@@ -129,7 +135,7 @@
   	userName = "Daniel Boman";
 
   	signing = {
-  		signByDefault = true;
+  		signByDefault = false;
   		key = "C30B 055A 68C6 D657 1EF0  6133 5928 A043 6DB7 7DA6";	
   	};
   };
