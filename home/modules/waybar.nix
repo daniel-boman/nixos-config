@@ -2,7 +2,8 @@
 
 {
 	programs.waybar = {
-		enable = true;
+		enable = false;
+		systemd.enable = false;
 
 		settings = {
 
@@ -16,15 +17,16 @@
 			    "modules-left" =  [
 			        "hyprland/workspaces"
 			    ];
-			    "modules-center" =  ["hyprland/window"];
+			    "modules-center" =  [ "hyprland/window" "custom/spotify" ];
 			    "modules-right" =  [
 			        "tray"
 			        "custom/updates"
-			        "hyprland/language"
 			        "pulseaudio"
 			        "pulseaudio#microphone"
 			        "clock"
-			        "custom/weather"
+			        "cpu"
+			        "memory"
+					"network"
 			    ];
 			
 			    "hyprland/window" =  {
@@ -46,14 +48,35 @@
 			        exec  =  "~/.config/waybar/scripts/waybar-wttr.py";
 			        return-type  =  "json";
 			    };
+			    "custom/spotify" = {
+			    	exec = "${pkgs.waybar-media-player}/bin/mediaplayer --player spotify";
+			    	format = "{} ";
+			    	return-type = "json";
+			    	onclick = "playerctl play-pause";
+			    	on-scroll-up = "playerctl next";
+			    	on-scroll-down = "playerctl previous";
+			    };
 			    tray = {
 			       	icon-size =  16;
 			        spacing =  10;
 			    };
-			    clock = {
-			        format =  "{ =  %R   %d/%m}";
-			        tooltip-format =  "<big>{ = %Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-			    };
+      			clock = {
+      			  format-alt = "{:%Y-%m-%d}";
+      			  tooltip-format = "{:%Y-%m-%d | %H:%M}";
+      			};
+      			cpu = {
+      			  format = "{usage}% ";
+      			  tooltip = true; 
+      			};
+      			memory = { format = "{}% "; };
+      			network = {
+      			  interval = 1;
+      			  format-alt = "{ipaddr}/{cidr}";
+      			  format-disconnected = "Disconnected ⚠";
+      			  format-ethernet = "{ipaddr}/{cidr} up: {bandwidthUpBytes} down: {bandwidthDownBytes}";
+      			  format-linked = "{ifname} (No IP) ";
+      			  format-wifi = "{essid} ({signalStrength}%) ";
+      			};
 			    pulseaudio = {
 			        format =  "{icon} {volume}%";
 			        tooltip =  false;
@@ -146,9 +169,11 @@ tooltip {
 #clock,
 #battery,
 #pulseaudio,
-#network,
 #workspaces,
 #tray,
+#memory,
+#network,
+#cpu,
 #backlight {
   background: #1e1e2e;
   padding: 0px 10px;
@@ -196,6 +221,12 @@ tooltip {
   margin-right: 60px;
 }
 
+#custom-spotify {
+  border-radius: 10px;
+  margin-left: 60px;
+  margin-right: 60px;	
+}
+
 #clock {
   color: #fab387;
   border-radius: 10px 0px 0px 10px;
@@ -203,9 +234,26 @@ tooltip {
   border-right: 0px;
 }
 
+#cpu {
+  color: #fab387;
+  border-radius: 10px 0px 0px 10px;
+  margin-left: 6px;
+  border-right: 0px;
+}
+
+
+#memory {
+  color: #fab387;
+  border-radius: 10px 0px 0px 10px;
+  margin-left: 6px;
+  border-right: 0px;
+}
+
+
 #network {
-  color: #f9e2af;
-  border-left: 0px;
+  background: #1e1e2e;
+  border-radius: 10px 0px 0px 10px;
+  margin-left: 6px;
   border-right: 0px;
 }
 

@@ -5,4 +5,10 @@
 		enable = true;
 	}
 
+	programs.spotify-player = {
+		enable = false;		
+	};
+
+
+
 }

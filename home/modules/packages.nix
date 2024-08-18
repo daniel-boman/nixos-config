@@ -1,5 +1,8 @@
 { config, pkgs, inputs, lib, ...}:
 
+let 
+	unstable = import <nixos-unstable> {config = {allowUnfree = true;};};
+in
 {
 	nixpkgs.config = {
 		allowUnfree = true;
@@ -8,6 +11,7 @@
 
 
 	home.packages = with pkgs; [
+			
 		jetbrains.rust-rover
 		jetbrains.goland
 
@@ -22,10 +26,9 @@
 		catppuccin-gtk
 		papirus-folders
 
-		spotify
 		discord
-
-		ripgrep
+		spotify
+#		spotifywm
 	];
 	
 }

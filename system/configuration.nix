@@ -15,6 +15,9 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Enable passwordless sudo
+  security.sudo.wheelNeedsPassword = false;
   
 	
   #networking.hostName = "nixos"; # Define your hostname.
@@ -119,6 +122,7 @@
   #  wget
 	micro
 	xclip
+	yubikey-personalization
   ];
 
   environment.variables.EDITOR = "micro";
@@ -132,6 +136,11 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+
+
+
 
   # List services that you want to enable:
 

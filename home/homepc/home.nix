@@ -92,13 +92,24 @@
 
 	settings = {
 		colors = {
-			background = "8aadf4";
+			background = "24273add";
+			text = "cad3f5ff";
+			match = "8aadf4ff";
+			selection = "5b6078ff";
+			selection-match = "8aadf4ff";
+			selection-text = "cad3f5ff";
+			border = "b7bdf8ff";
 		};	
 	};
   };
 
   programs.alacritty = {
   	enable = true;
+  	settings = {
+  		terminal = {
+  			osc52 = "CopyPaste";
+  		};
+  	};
   };
 
   programs.zsh = {
@@ -110,7 +121,10 @@
   	};
 
   	profileExtra = ''
+  		unset SSH_AGENT_PID
+  		export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
   		export GPG_TTY=$(tty)
+  		gpg-connect-agent updatestartuptty /bye >/dev/null
   	'';
 
   	oh-my-zsh = {
@@ -122,7 +136,7 @@
   			"golang"
   			"rust"
   			"docker"
-  			"ssh-agent"	
+  			#"ssh-agent"	
   		];
   		theme = "af-magic";
   	};
@@ -135,10 +149,12 @@
   	userName = "Daniel Boman";
 
   	signing = {
-  		signByDefault = false;
+  		signByDefault = true;
   		key = "C30B 055A 68C6 D657 1EF0  6133 5928 A043 6DB7 7DA6";	
   	};
   };
+
+
 
   programs.gpg = {
   	enable = true;

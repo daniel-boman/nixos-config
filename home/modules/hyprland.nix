@@ -62,15 +62,18 @@
 			};
 			
 			"$mod" = "SUPER";
-			"$statusbar" = "waybar";
+			#"$statusbar" = "waybar";
+			"$statusbar" = "ags";
 			exec-once = [
 				"$statusbar"
 				"dbus-update-activation-environment --systemd --all"
 				"systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 				"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-				"waybar & hyprpaper"
+				"$statusbar & hyprpaper"
 				"swayidle -w"
 				"nwg-look -a"
+				"discord"
+				"spotify"
 			];
 		
   			bind = [
@@ -97,8 +100,9 @@
 				"$mod CTRL SHIFT, left, movetoworkspace, e+1"
 				"$mod CTRL SHIFT, right, movetoworkspace, e-1"
 				"$mod, V, togglefloating"
-				", Print, exec, grimblast copy area"
-				"SHIFT, Print, exec, grimblast copysave area"
+				", Print, exec, grimblast --freeze copy area"
+				"SHIFT, Print, exec, grimblast --freeze copysave area"
+				"$mod, L, exec, swaylock -Ff"
   			];
 
   			bindm = [
@@ -139,6 +143,11 @@
   				"float, class:^(vesktop)$,title:^(Discord Popout)$ "
   				"pin, class:^(vesktop)$,title:^(Discord Popout)$ "
   				"float, class:^(steam)$,title:^(Friends List)$"
+  				"workspace 2, initialTitle:Spotify Premium"
+  				"workspace 2, initialClass:discord"
+  				"opacity 1.0 0.95, class:Alacritty"
+  				"idleinhibit fullscreen, class:^(.*)$"
+  				"idleinhibit focus, initialClass:firefox"
   			];
   	};  	
   };

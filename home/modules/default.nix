@@ -12,5 +12,6 @@
 		./hyprpaper.nix
 		./waybar.nix
 		./wlogout.nix
+		./ags.nix
 	];
 }

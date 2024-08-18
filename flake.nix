@@ -13,16 +13,18 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ags.url = "github:Aylur/ags";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations = {
-    	default = nixpkgs.lib.nixosSystem {
-      		specialArgs = {inherit inputs;};
-      		modules = [
-       	 		./system/configuration.nix
-      		];
-    	};
-    };
+ 	 nixosConfigurations = {
+  		default = nixpkgs.lib.nixosSystem {
+    			specialArgs = {inherit inputs;};
+    			modules = [
+     	 			./system/configuration.nix
+    			];
+	  	};
+  	};
   };
 }
